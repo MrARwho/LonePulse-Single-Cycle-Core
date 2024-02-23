@@ -26,7 +26,7 @@ def javacOptionsVersion(scalaVersion: String): Seq[String] = {
   }
 }
 
-name := "Auqaab-Single-Cycle-Core"
+name := "LonePulse-Single-Cycle-Core"
 
 version := "3.2.0"
 
