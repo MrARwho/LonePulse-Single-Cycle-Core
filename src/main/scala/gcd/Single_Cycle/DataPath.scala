@@ -1,6 +1,6 @@
 package Single_Cycle
 
-import lab_4.ALU1
+//import lab_4.ALU1
 import chisel3 . _
 import chisel3 . util . _
 
@@ -13,13 +13,13 @@ class DataPath extends Module {
   //val pc = Module(new PC)
   val cu = Module(new CU)
   val regfile = Module(new RegisterFile)
-  val insmem = Module(new InstMem("/home/saad/Desktop/MRAR/Scala-Chisel-Learning-Journey/src/main/scala/gcd/Single_Cycle/Imem.txt"))
+  val insmem = Module(new InstMem("/home/owais/LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/Imem.txt"))
   val datamem = Module(new Datamem)
   val alu = Module(new ALU1)
   val checkbranch = Module(new BranchALU)
 
   val pc = RegInit(0.U(32.W))
-  pc := Mux(cu.io.pcselec,(alu.io.out),pc+4.U)
+  pc := Mux(cu.io.pcselec,(alu.io.out.asUInt),pc+4.U)
 
 
 
@@ -38,13 +38,13 @@ class DataPath extends Module {
   datamem.io.datain := regfile.io.Rs2out
   checkbranch.io.in_A := regfile.io.Rs1out
   checkbranch.io.in_B := regfile.io.Rs2out
-  regfile.io.datain := alu.io.out
+  regfile.io.datain := alu.io.out.asUInt
   datamem.io.fun3 := cu.io.lengthselect
   datamem.io.enable := cu.io.readmem
 
-  alu.io.in_A := Mux(checkbranch.io.doBranch || cu.io.jump , pc, regfile.io.Rs1out)
-  alu.io.in_B := Mux(!cu.io.Instype , cu.io.Imm , regfile.io.Rs2out)
-  datamem.io.addr := alu.io.out
+  alu.io.in_A := Mux(checkbranch.io.doBranch || cu.io.jump , pc.asSInt, regfile.io.Rs1out.asSInt)
+  alu.io.in_B := Mux(!cu.io.Instype , cu.io.Imm.asSInt , regfile.io.Rs2out.asSInt)
+  datamem.io.addr := alu.io.out.asUInt
   datamem.io.datain:= regfile.io.Rs2out
   //Mux(cu.io.wbselect===1.U, regfile.io.Rs2out, regfile.io.Rs2out ) //MuxLookup(cu.io.lengthselect, 0.S, Array(
 //    (0.U) -> regfile.io.Rs2out(8, 0).asSInt(),
@@ -53,14 +53,14 @@ class DataPath extends Module {
 
 
     when(cu.io.wbselect === 1.U){
-    regfile.io.datain := alu.io.out
+    regfile.io.datain := alu.io.out.asUInt
     }
     .elsewhen(cu.io.wbselect === 0.U) {
       regfile.io.datain := datamem.io.dataout
     }.elsewhen(cu.io.wbselect === 2.U){
         regfile.io.datain := (pc +4.U)
       }
-  io.out := alu.io.out
+  io.out := alu.io.out.asUInt
 
 
 
