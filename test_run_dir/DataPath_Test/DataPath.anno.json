@@ -10,7 +10,7 @@
   {
     "class":"firrtl.annotations.LoadMemoryAnnotation",
     "target":"DataPath.InstMem.imem",
-    "fileName":"/home/saad/Desktop/MRAR/Scala-Chisel-Learning-Journey/src/main/scala/gcd/Single_Cycle/Imem.txt",
+    "fileName":"/home/owais/LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/Imem.txt",
     "hexOrBinary":"h",
     "originalMemoryNameOpt":"imem"
   },
