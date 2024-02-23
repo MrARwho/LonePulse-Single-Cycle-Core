@@ -53,11 +53,11 @@ cd LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/SingleCycle
 ```
 Open **InstMem.scala** with this command. You can also manually go into the above path and open the file in your favorite text editor.
 ```ruby
-open InstMem.scala
+open insMem.scala
 ```
 Find the following line
 ``` python
-loadMemoryFromFile(InstMem, ""/home/owais/LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/Imem.txt"")
+loadMemoryFromFile(insMem, ""/home/owais/LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/Imem.txt"")
 ```
 Change the .txt file path to match your file that you created above storing your own program instructions. or you can also use this file\
 After setting up the InstructionMem.scala file, go inside the RV32i folder.
