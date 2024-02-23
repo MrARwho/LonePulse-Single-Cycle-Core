@@ -24,26 +24,59 @@ SBT is the most common built tool in the Scala community. You can download it [h
 sudo apt-get install verilator
 ```
 
-### How to get started
+### For quick debugging
+If you quickly want to see what verilog is being generated, go to this link  https://bit.ly/3u3zr0e and write Chisel here.
 
-Fork this repository on your own individual profiles. After forking clone the repository and run:
+First of all get started by cloning this repository on your machine.
 
-```sh
-sbt test
+```ruby
+git clone https://github.com/MrARwho/LonePulse-Single-Cycle-Core.git-.git
 ```
 
-You should see a whole bunch of output that ends with something like the following lines
+Create a .txt file and place the ***hexadecimal*** code of your instructions simulated on ***Venus*** (RISC-V Simulator)\
+Each instruction's hexadecimal code must be on seperate line as following. This program consists of 9 instructions.
+
+```ruby
+00500113
+00500193
+014000EF
+00120293
+00502023
+00002303
+00628663
+00310233
+00008067
 ```
-[info] Tests: succeeded 1, failed 0, canceled 0, ignored 0, pending 0
-[info] All tests passed.
-[success] Total time: 5 s, completed Dec 16, 2020 12:18:44 PM
+Then perform the following step
 ```
-If you see the above then...
+cd LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/SingleCycle
+```
+Open **InstMem.scala** with this command. You can also manually go into the above path and open the file in your favorite text editor.
+```ruby
+open InstMem.scala
+```
+Find the following line
+``` python
+loadMemoryFromFile(InstMem, ""/home/owais/LonePulse-Single-Cycle-Core/src/main/scala/gcd/Single_Cycle/Imem.txt"")
+```
+Change the .txt file path to match your file that you created above storing your own program instructions. or you can also use this file\
+After setting up the InstructionMem.scala file, go inside the RV32i folder.
+```ruby
+cd Single-Cycle-CPU/RV32i
+```
 
-### It worked!
-
-You are ready to go. Next step is to go inside the `docs/` folder where you will find the labs to perform.
-
+And enter
+```ruby
+sbt
+```
+When the terminal changes to this type
+```ruby
+sbt:LonePulse-Single-Cycle-Core>
+```
+Enter this command
+```ruby
+sbt:LonePulse-Single-Cycle-Core> testOnly Single_Cycle.DataPathTester -- -DwriteVcd=1
+```
 ### For quick debugging
 If you quickly want to see what verilog is being generated, go to this link  https://bit.ly/3u3zr0e and write Chisel here.
 
